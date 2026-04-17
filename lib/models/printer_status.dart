@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class PrinterStatus {
   final bool printing;
   final bool paused;
@@ -65,5 +67,3 @@ class PrinterStatus {
     return '${minutes}m';
   }
 }
-
-import 'package:flutter/material.dart';

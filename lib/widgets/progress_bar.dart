@@ -20,7 +20,7 @@ class ProgressBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.progress_activity),
+                const Icon(Icons.sync),
                 const SizedBox(width: 8),
                 Text(
                   'Print Progress',
