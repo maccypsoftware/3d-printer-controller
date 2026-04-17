@@ -11,3 +11,23 @@ workflows:
         script: flutter build ios --release
     artifacts:
       - build/ios/ipa/*.ipa
+  ios-workflow:
+    name: iOS Workflow
+    environment:
+      xcode: 15.0
+      cocoapods: default
+    scripts:
+      - name: Install Flutter dependencies
+        script: flutter pub get
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios
+          pod install
+      - name: Build iOS
+        script: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath build/Runner.xcarchive archive
+          xcodebuild -exportArchive -archivePath build/Runner.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+    artifacts:
+      - build/Runner.xcarchive
+      - build/*.ipa
