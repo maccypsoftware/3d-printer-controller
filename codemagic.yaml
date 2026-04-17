@@ -26,7 +26,7 @@ workflows:
       - name: Build iOS
         script: |
           cd ios
-          xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath build/Runner.xcarchive archive
+          xcodebuild -project Runner.xcodeproj -scheme Runner -configuration Release -archivePath build/Runner.xcarchive archive
           xcodebuild -exportArchive -archivePath build/Runner.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
     artifacts:
       - build/Runner.xcarchive

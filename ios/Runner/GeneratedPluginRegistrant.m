@@ -2,27 +2,48 @@
 //  Generated file. Do not edit.
 //
 
+// clang-format off
+
 #import "GeneratedPluginRegistrant.h"
 
-#if TARGET_OS_IPHONE
-  #import <Flutter/Flutter.h>
-  #import <flutter_push_notifications/flutter_push_notifications-Swift.h>
-  #import <permission_handler/permission_handler-Swift.h>
-  #import <camera/camera-Swift.h>
-  #import <video_player/video_player-Swift.h>
-  #import <flutter_svg/flutter_svg-Swift.h>
-  #import <shared_preferences/shared_preferences-Swift.h>
+#if __has_include(<camera_avfoundation/CameraPlugin.h>)
+#import <camera_avfoundation/CameraPlugin.h>
+#else
+@import camera_avfoundation;
+#endif
+
+#if __has_include(<flutter_local_notifications/FlutterLocalNotificationsPlugin.h>)
+#import <flutter_local_notifications/FlutterLocalNotificationsPlugin.h>
+#else
+@import flutter_local_notifications;
+#endif
+
+#if __has_include(<permission_handler_apple/PermissionHandlerPlugin.h>)
+#import <permission_handler_apple/PermissionHandlerPlugin.h>
+#else
+@import permission_handler_apple;
+#endif
+
+#if __has_include(<shared_preferences_foundation/SharedPreferencesPlugin.h>)
+#import <shared_preferences_foundation/SharedPreferencesPlugin.h>
+#else
+@import shared_preferences_foundation;
+#endif
+
+#if __has_include(<video_player_avfoundation/FVPVideoPlayerPlugin.h>)
+#import <video_player_avfoundation/FVPVideoPlayerPlugin.h>
+#else
+@import video_player_avfoundation;
 #endif
 
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-    [FlutterPushNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterPushNotificationsPlugin"]];
-    [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
-    [FLTCameraPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTCameraPlugin"]];
-    [FLTVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTVideoPlayerPlugin"]];
-    [FlutterSvgPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSvgPlugin"]];
-    [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
+  [CameraPlugin registerWithRegistrar:[registry registrarForPlugin:@"CameraPlugin"]];
+  [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
+  [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
+  [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
+  [FVPVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FVPVideoPlayerPlugin"]];
 }
 
 @end
