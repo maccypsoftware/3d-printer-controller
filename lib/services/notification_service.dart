@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationService {
   static const String _tokenKey = 'push_token';
+  static final FlutterLocalNotificationsPlugin _notificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   static Future<void> initialize() async {
     // Request notification permissions
     await _requestPermissions();
+    
+    // Initialize local notifications
+    await _initializeLocalNotifications();
     
     // Initialize push notifications
     await _initializePushNotifications();
@@ -22,6 +28,27 @@ class NotificationService {
     } else {
       print('Notification permission denied');
     }
+  }
+
+  static Future<void> _initializeLocalNotifications() async {
+    const AndroidInitializationSettings androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
+
+    const InitializationSettings settings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
+
+    await _notificationsPlugin.initialize(
+      settings,
+      onDidReceiveNotificationResponse: _onNotificationTap,
+    );
   }
 
   static Future<void> _initializePushNotifications() async {
@@ -56,14 +83,41 @@ class NotificationService {
     }
   }
 
-  static void showLocalNotification({
+  static Future<void> showLocalNotification({
     required String title,
     required String body,
     String? payload,
-  }) {
-    // This would show a local notification
-    // In a real implementation, you'd use flutter_local_notifications
-    print('Local notification: $title - $body');
+  }) async {
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'printer_monitor_channel',
+      'Printer Monitor Notifications',
+      channelDescription: 'Notifications for 3D printer status updates',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+
+    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await _notificationsPlugin.show(
+      DateTime.now().millisecondsSinceEpoch.remainder(100000),
+      title,
+      body,
+      notificationDetails,
+      payload: payload,
+    );
+  }
+
+  static void _onNotificationTap(NotificationResponse response) {
+    handleNotificationTap(response.payload);
   }
 
   static void handleNotificationTap(String? payload) {
