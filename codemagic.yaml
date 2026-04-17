@@ -3,7 +3,7 @@ workflows:
     name: Flutter Workflow
     environment:
       flutter: 3.13.0
-      xcode: 14.3.1
+      xcode: 14.2
       cocoapods: default
     scripts:
       - name: Install Flutter dependencies
