@@ -3,12 +3,10 @@ import UIKit
 import XCTest
 
 class RunnerTests: XCTestCase {
-  
+
   func testExample() {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct
-    // results.
-    XCTAssertEqual(2 + 2, 4)
+    // If you add code to the Runner application, consider adding tests here.
+    // See https://developer.apple.com/documentation/xctest for more information about using XCTest.
   }
-  
+
 }
